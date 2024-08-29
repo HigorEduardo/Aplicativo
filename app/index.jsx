@@ -1,37 +1,103 @@
 import React from "react";
-import { Text, View, Image, TextInput, Button, StyleSheet} from "react-native";
-import {LinearGradient} from 'expo-linear-gradient';
+import { Text, View, Pressable } from 'react-native';
+import { TextInput } from "react-native";
+import {useState} from "react"
 
-const style = StyleSheet.create({
-    container:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+const style = function (){
+    return({
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 50,
     },
-
-    Image:{
-     width:300,
-     height:60,
+        row:{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 10,
     },
-
-    
-
+        buttonWidth:{
+            width: 5
+        },
+        input: {
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            padding: 10,
+          },
 })
+}
 
-export default splashScreen = function () {
-  return (
+export default helloWorld = function(){
+        const [text, onChangeText] = useState('Useless Text');
+        const [number1, onChangeNumber1] = useState('');
+        const [number2, onChangeNumber2] = useState('');
+        const [resultado, setResultado] = useState('');
     
-  
-    <LinearGradient
+        const soma = function(){
+             setResultado (Number(number1) + Number(number2))
+             onChangeNumber1 ('')
+             onChangeNumber2('')
+             return true
+        }
+        const subtracao = function(){
+             setResultado (Number(number1) - Number(number2))
+             onChangeNumber1 ('')
+             onChangeNumber2('')
+             return true
+        }
+        const multiplicacao = function(){
+             setResultado (Number(number1) * Number(number2))
+             onChangeNumber1 ('')
+             onChangeNumber2('')
+             return true
+        }
+        const divisao = function(){
+             setResultado (Number(number1) / Number(number2))
+             onChangeNumber1 ('')
+             onChangeNumber2('')
+             return true
+        }
+        console.log(resultado)
+
+    return(
+        <View style={style().container}>
+            <Text>CALCULADORA</Text>
+            <Text>Digite 2 numeros</Text>
+                <View style={style().row}>
+                <TextInput style={style().input}
+                onChangeText={onChangeNumber1}
+                value={number1}
+        placeholder="Primeiro numero"
+        keyboardType="numeric"
+      />
+                <TextInput style={style().input}
+                onChangeText={onChangeNumber2}
+                value={number2}
+        placeholder="Segundo numero"
+        keyboardType="numeric"
+      />
+                    
+            </View>
+            <View style={style().row}>
+                <Pressable style={style().buttonWidth}
+              
+                onPress={() => soma()}
+                title="+"/>
+                
+                <Pressable
+                onPress={() => subtracao()}
+                title="-"/>
+                <Pressable
+                onPress={() => multiplicacao()}
+                title="*"/>
+                <Pressable
+                onPress={() => divisao()}
+                title="/"/>
+            </View>
+            <Text>Seu resultado é:{resultado}</Text>
+        </View>
+        
+    )
     
-      colors={['#f2b765', '#8a4b2c','#f2b765' ]} 
-      style={style.container}
-    >
-            <Image 
-            source={require('./Imagens/thelast.png')} style={style.Image}
-            />
-             </LinearGradient>
-   
-   
-  );
-};
+}
